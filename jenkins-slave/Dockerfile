@@ -1,9 +1,9 @@
-FROM registry.access.redhat.com/rhel7/rhel
+FROM centos:7
 
-ENV JENKINS_SWARM_VERSION 2.0
-ENV JNLP_SLAVE_VERSION 2.52
+ENV JENKINS_SWARM_VERSION 3.3
+ENV JNLP_SLAVE_VERSION 3.7
 ENV HOME /opt/jenkins-slave
-ENV MAVEN_VERSION 3.3.3
+ENV MAVEN_VERSION 3.3.9
 ENV JAVA_HOME /usr/lib/jvm/java
 
 RUN yum install -y git tar zip unzip which java-1.8.0-openjdk-devel && \
@@ -18,7 +18,7 @@ RUN yum install -y git tar zip unzip which java-1.8.0-openjdk-devel && \
 COPY jenkins-slave.sh /opt/jenkins-slave/bin/
 
 # Download plugin and modify permissions
-RUN curl --create-dirs -sSLo /opt/jenkins-slave/bin/swarm-client-$JENKINS_SWARM_VERSION-jar-with-dependencies.jar http://maven.jenkins-ci.org/content/repositories/releases/org/jenkins-ci/plugins/swarm-client/$JENKINS_SWARM_VERSION/swarm-client-$JENKINS_SWARM_VERSION-jar-with-dependencies.jar \
+RUN curl --create-dirs -sSLo /opt/jenkins-slave/bin/swarm-client-$JENKINS_SWARM_VERSION-jar-with-dependencies.jar http://repo.jenkins-ci.org/releases/org/jenkins-ci/plugins/swarm-client/$JENKINS_SWARM_VERSION/swarm-client-$JENKINS_SWARM_VERSION-jar-with-dependencies.jar \
   && curl --create-dirs -sSLo /opt/jenkins-slave/bin/slave.jar http://repo.jenkins-ci.org/public/org/jenkins-ci/main/remoting/$JNLP_SLAVE_VERSION/remoting-$JNLP_SLAVE_VERSION.jar \
   && chmod -R 775 /opt/jenkins-slave /var/lib/jenkins && \
   chown -R jenkins-slave:root /opt/jenkins-slave /var/lib/jenkins

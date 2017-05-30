@@ -173,7 +173,7 @@
                     "dockerStrategy": {
                         "from": {
                             "kind": "ImageStreamTag",
-                            "name": "rhel7:latest"
+                            "name": "centos:latest"
                         }
                     }
                 },

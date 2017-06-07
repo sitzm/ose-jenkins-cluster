@@ -23,7 +23,8 @@ if [ ! -z $JENKINS_SECRET ] && [ ! -z $JENKINS_JNLP_URL ]; then
 		URL="-url $JENKINS_URL"
 	fi
         echo "java $JAVA_OPTS -cp $JAR hudson.remoting.jnlp.Main -headless $TUNNEL $URL -jar-cache $HOME $@"
-	exec java $JAVA_OPTS -cp $JAR hudson.remoting.jnlp.Main -headless $TUNNEL $URL -jar-cache $HOME "$@"
+	echo "$JENKINS_NAME $JENKINS_SECRET"
+	exec java $JAVA_OPTS -cp $JAR hudson.remoting.jnlp.Main -headless $TUNNEL $URL -jar-cache $HOME $JENKINS_SECRET $JENKINS_NAME
 
 elif [[ $# -lt 1 ]] || [[ "$1" == "-"* ]]; then
 
